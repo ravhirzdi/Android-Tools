@@ -1,5 +1,5 @@
 # Android-Tools
-Android Tools is application based in Android Debug Bridge Command line tool
+Android Tools is application based on Android Debug Bridge Command line tool
 
 # Features
 - ADB Shell
@@ -29,6 +29,5 @@ Before you start debugging please :
 - Copy ADB.exe adn ADBWinApi.dll (In Folder External Lib) to /bin/debug/(here)
 
 # Notes
-
 - All comments in Source Code in Bahasa Indonesia, sorry for that :D
 - Just ask me what is the function for, if you don't understand.
