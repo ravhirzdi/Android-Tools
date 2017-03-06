@@ -5,7 +5,13 @@
 'Copyright      : 2017                  '
 '======================================='
 
-'Fungsi untuk mengimpor Referensi
+'VB cannot use multilines comment function
+'So I use this trick
+#If comments Then
+
+#End If
+
+'Function for Import Reference
 Imports System
 Imports System.IO
 Imports System.Text
@@ -17,6 +23,9 @@ Imports Microsoft.VisualBasic
 
 Public Class frm_Main
 
+    Dim locat As String = System.Reflection.Assembly.GetEntryAssembly.Location
+    Dim MyDirectory As String = System.IO.Path.GetDirectoryName(locat)
+
     'Code by Patrick Boschert
     'For Writing INI File
     'http://boschert-consulting.com/en/vb-net-einstellunger-in-ini-speichern-und-ausles/
@@ -27,13 +36,14 @@ Public Class frm_Main
                                                                                                               ByVal lpFileName As String) _
                                                                                                           As Integer
 
-    'Fungsi timer untuk menampikan Device Info dan Kapasitas Baterai secara Real Time
+    'Timer function to get Device Name and Battery Capacity in Real Time
     Private Sub DeviceDetectedTimer(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call New Action(AddressOf GetDevInfo).BeginInvoke(Nothing, Nothing)
         Call New Action(AddressOf GetBatteryCapacity).BeginInvoke(Nothing, Nothing)
     End Sub
 
-    'Fungsi untuk menonaktifkan seluruh kontrol
+    'Function to Disable all controls
+    'Use if no Device detected or anything
     Sub DisableAllControl()
         Dim i As Integer = -1
         Dim a As Control
@@ -125,7 +135,7 @@ Public Class frm_Main
         cb_prefnetwork.Enabled = False
     End Sub
 
-    'Fungsi untuk mengaktifkan seluruh kontrol
+    'Function to Active all Controls
     Sub EnableAllControl()
         Dim i As Integer = -1
         Dim a As Control
@@ -224,7 +234,10 @@ Public Class frm_Main
         End If
     End Sub
 
-    'Perintah Universal ADB yang bersifat publik agar dapat dijalankan disetiap bagian kode yang membutuhkan
+    'This function is default ADB Command
+    'So you just call it from everywhere and add your arguments
+    'Usage ADBComm(argument)
+    'Example ADBComm(reboot) << It make your device reboot
     Shared Sub ADBComm(ByVal Arg As String)
         Dim proc As New Process
 
@@ -245,27 +258,29 @@ Public Class frm_Main
         proc.Dispose()
     End Sub
 
-    'Perintah adb untuk melakukan inisiasi
+    'ADB Function for start daemon/ADB
     Sub StartServer()
         ADBComm("start-server")
     End Sub
 
-    'Perintah adb untuk restart dan memulai listening dari USB
+    'ADB Function for restarting ADB listening via USB
     Sub ADBRestartUSB()
         ADBComm("usb")
     End Sub
 
-    'Perintah adb untuk restart dan memulai ADB dengan Root
+    'ADB Function for restarting ADB listening via USB with Root Permission
     Sub ADBRestartRoot()
         ADBComm("root")
     End Sub
 
-    'Perintah adb untuk restart dan menonaktifkan ADB Root
+    'ADB Function for restarting ADB listening without Root Permission
     Sub ADBRestartUnroot()
         ADBComm("unroot")
     End Sub
 
-    'Perintah adb untuk mendapatkan Device Info (Cth: Redmi Note 2)
+    'ADB Function for get Device Name/Model
+    'Ex: Galaxy S7
+    'Get the name from build.prop
     Private Sub GetDevInfo()
         Dim cmdInput As String = "shell getprop ro.product.model"
         Dim proc As New Process
@@ -292,7 +307,8 @@ Public Class frm_Main
         proc.Dispose()
     End Sub
 
-    'Perintah adb untuk mendapatkan kapasitas baterai
+    'ADB Function for get Battery Capacity
+    'Read it from /sys/class/power_supply/battery/capacity
     Private Sub GetBatteryCapacity()
 
         Dim cmdInput As String = "shell cat /sys/class/power_supply/battery/capacity"
@@ -320,35 +336,14 @@ Public Class frm_Main
         proc.Dispose()
     End Sub
 
-    'Perintah adb untuk mendapatkan versi Android
-    Private Sub GetAndroidVersion()
-
-        Dim cmdInput As String = "shell getprop ro.build.version.release"
-        Dim proc As New Process
-
-        proc.StartInfo.CreateNoWindow = True
-        proc.StartInfo.UseShellExecute = False
-        proc.StartInfo.FileName = "adb.exe"
-        proc.StartInfo.Arguments = cmdInput
-        proc.StartInfo.RedirectStandardOutput = True
-        proc.StartInfo.RedirectStandardInput = True
-        proc.StartInfo.RedirectStandardError = True
-        proc.Start()
-
-        proc.StandardInput.WriteLine(cmdInput)
-        proc.StandardInput.Close()
-
-        proc.Close()
-        proc.Dispose()
-    End Sub
-
-    'Perintah adb untuk menonaktifkan proses adb.exe
+    'ADB Function for kill running daemon/ADB
+    'And Close all adb.exe (To make sure if it still running) So we kill it from Task Manager
     Private Sub KillServer()
         ADBComm("kill-server")
         Shell("cmd.exe /c taskkill /f /im adb.exe /t", AppWinStyle.Hide, False, )
     End Sub
 
-    'Perintah adb untuk mengkoneksikan ADB via WiFi
+    'ADB Function to Connect Over WiFi
     Private Sub ConnectWiFi()
         Dim cmdInput As String = "connect " & txt_ipaddr.Text & ":" & txt_tcpip.Text
         Dim proc As New Process
@@ -384,7 +379,8 @@ Public Class frm_Main
         proc.Dispose()
     End Sub
 
-    'Perintah adb untuk memutus koneksi ADB via WiFi
+    'ADB Function for Disconnect listening Via WiFi
+    'Make it back to USB
     Private Sub DisconnectWiFi()
         Dim cmdInput As String = "disconnect " & txt_ipaddr.Text & ":" & txt_tcpip.Text
         Dim proc As New Process
@@ -405,7 +401,7 @@ Public Class frm_Main
         proc.Dispose()
     End Sub
 
-    'Perintah adb untuk melalukan Reboot
+    'ADB Function for Rebooting Device (Normal Reboot)
     Private Sub Reboot()
         ADBComm("reboot")
 
@@ -414,7 +410,7 @@ Public Class frm_Main
         txt_Logs.ScrollToCaret()
     End Sub
 
-    'Perintah adb untuk melakukan reboot recovery
+    'ADB Function for Rebooting Device (Recovery Reboot)
     Private Sub RebootRecovery()
         ADBComm("reboot recovery")
 
@@ -423,7 +419,7 @@ Public Class frm_Main
         txt_Logs.ScrollToCaret()
     End Sub
 
-    'Perintah adb untuk melakukan reboot-bootloader
+    'ADB Function for Rebooting Device (Bootloader/Fastboot Reboot)
     Private Sub RebootBL()
         ADBComm("reboot-bootloader")
 
@@ -432,7 +428,8 @@ Public Class frm_Main
         txt_Logs.ScrollToCaret()
     End Sub
 
-    'Perintah adb untuk menulis text pada Device
+    'ADB Function for Simulate Text Input on Your Device
+    'Just like Virtual Keyboard, After we Input than the commands will send it to Your Device
     Sub KeyInputTextEvent()
         ADBComm("shell input text " & txt_InputKey.Text)
         ADBComm("shell keyevent 4")
@@ -1193,6 +1190,7 @@ Public Class frm_Main
     '================================'
 
     Private Sub frm_Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
         'Fungsi agar dapat melakukan panggilan MultiThread antar control dan object dapat dilakukan.
         'Jika value True/Tidak ada, Maka harus melakukan invoke dan delegate setiap control dan object.
         Control.CheckForIllegalCrossThreadCalls = False
@@ -1229,7 +1227,6 @@ Public Class frm_Main
 
         txt_Logs.AppendText(My.Computer.Info.OSFullName & "/" & My.Computer.Name & vbNewLine)
         lbl_BuildPropStats.Text = "Total Lines : - Text Lenght : - "
-        lbl_version.Text = Application.ProductVersion
 
     End Sub
 
@@ -1243,6 +1240,9 @@ Public Class frm_Main
         'Memeriksa apakah ada file build.prop
         If My.Computer.FileSystem.FileExists("build.prop") Then
             My.Computer.FileSystem.DeleteFile("build.prop")
+        End If
+        If My.Computer.FileSystem.FileExists("up.tmp") Then
+            My.Computer.FileSystem.DeleteFile("up.tmp")
         End If
     End Sub
     '======================================'
@@ -1843,5 +1843,9 @@ Public Class frm_Main
         Dim textlenght = txt_buildprop.Document.TextLength.ToString
 
         lbl_BuildPropStats.Text = "Total Lines : " & linetotal & " Text Lenght : " & textlenght
+    End Sub
+
+    Private Sub ll_Update_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles ll_Update.LinkClicked
+        frm_updater.Show()
     End Sub
 End Class

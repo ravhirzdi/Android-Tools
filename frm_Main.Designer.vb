@@ -160,7 +160,8 @@ Partial Class frm_Main
         Me.lbl_About = New System.Windows.Forms.Label()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.lbl_Header = New System.Windows.Forms.Label()
-        Me.lbl_version = New System.Windows.Forms.Label()
+        Me.ll_Update = New System.Windows.Forms.LinkLabel()
+        Me.ll_Github = New System.Windows.Forms.LinkLabel()
         Me.gb_Logs.SuspendLayout()
         Me.gb_RebootOptions.SuspendLayout()
         Me.gb_DevInfo.SuspendLayout()
@@ -1569,10 +1570,11 @@ Partial Class frm_Main
         '
         'gb_About
         '
+        Me.gb_About.Controls.Add(Me.ll_Github)
         Me.gb_About.Controls.Add(Me.lbl_About)
         Me.gb_About.Location = New System.Drawing.Point(7, 0)
         Me.gb_About.Name = "gb_About"
-        Me.gb_About.Size = New System.Drawing.Size(200, 208)
+        Me.gb_About.Size = New System.Drawing.Size(200, 205)
         Me.gb_About.TabIndex = 0
         Me.gb_About.TabStop = False
         '
@@ -1581,10 +1583,10 @@ Partial Class frm_Main
         Me.lbl_About.Font = New System.Drawing.Font("Comic Sans MS", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_About.Location = New System.Drawing.Point(7, 16)
         Me.lbl_About.Name = "lbl_About"
-        Me.lbl_About.Size = New System.Drawing.Size(187, 186)
+        Me.lbl_About.Size = New System.Drawing.Size(187, 165)
         Me.lbl_About.TabIndex = 0
-        Me.lbl_About.Text = "Created by :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Muhammad Ravhi Rizaldi" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ADB version :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1.0.32" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Tested On :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Xia" & _
-            "omi Redmi Note 2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This software is freeware" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Under GPL 3.0 License"
+        Me.lbl_About.Text = "Created by :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Muhammad Ravhi Rizaldi" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ADB version :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1.0.32" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This software is" & _
+            " freeware" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Under GNU GPL 3.0 License" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Check Github for Source Code"
         Me.lbl_About.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Timer1
@@ -1593,24 +1595,34 @@ Partial Class frm_Main
         '
         'lbl_Header
         '
-        Me.lbl_Header.Font = New System.Drawing.Font("01 Digitall", 48.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_Header.Font = New System.Drawing.Font("Bookman Old Style", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_Header.ForeColor = System.Drawing.Color.ForestGreen
         Me.lbl_Header.Location = New System.Drawing.Point(13, 9)
         Me.lbl_Header.Name = "lbl_Header"
-        Me.lbl_Header.Size = New System.Drawing.Size(544, 56)
+        Me.lbl_Header.Size = New System.Drawing.Size(561, 56)
         Me.lbl_Header.TabIndex = 6
         Me.lbl_Header.Text = "Android Tools"
-        Me.lbl_Header.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lbl_Header.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'lbl_version
+        'll_Update
         '
-        Me.lbl_version.AutoSize = True
-        Me.lbl_version.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_version.Location = New System.Drawing.Point(504, 39)
-        Me.lbl_version.Name = "lbl_version"
-        Me.lbl_version.Size = New System.Drawing.Size(78, 24)
-        Me.lbl_version.TabIndex = 7
-        Me.lbl_version.Text = "version"
+        Me.ll_Update.AutoSize = True
+        Me.ll_Update.Location = New System.Drawing.Point(431, 487)
+        Me.ll_Update.Name = "ll_Update"
+        Me.ll_Update.Size = New System.Drawing.Size(76, 13)
+        Me.ll_Update.TabIndex = 8
+        Me.ll_Update.TabStop = True
+        Me.ll_Update.Text = "Check Update"
+        '
+        'll_Github
+        '
+        Me.ll_Github.AutoSize = True
+        Me.ll_Github.Location = New System.Drawing.Point(81, 181)
+        Me.ll_Github.Name = "ll_Github"
+        Me.ll_Github.Size = New System.Drawing.Size(38, 13)
+        Me.ll_Github.TabIndex = 9
+        Me.ll_Github.TabStop = True
+        Me.ll_Github.Text = "Github"
         '
         'frm_Main
         '
@@ -1618,7 +1630,7 @@ Partial Class frm_Main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(586, 509)
-        Me.Controls.Add(Me.lbl_version)
+        Me.Controls.Add(Me.ll_Update)
         Me.Controls.Add(Me.lbl_Header)
         Me.Controls.Add(Me.ll_Email)
         Me.Controls.Add(Me.tc_MAIN)
@@ -1631,7 +1643,7 @@ Partial Class frm_Main
         Me.Name = "frm_Main"
         Me.Opacity = 0.99R
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "55555555555"
+        Me.Text = "Android Tools"
         Me.gb_Logs.ResumeLayout(False)
         Me.gb_Logs.PerformLayout()
         Me.gb_RebootOptions.ResumeLayout(False)
@@ -1673,6 +1685,7 @@ Partial Class frm_Main
         Me.tb_About.PerformLayout()
         Me.gb_Thanks.ResumeLayout(False)
         Me.gb_About.ResumeLayout(False)
+        Me.gb_About.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1813,6 +1826,7 @@ Partial Class frm_Main
     Friend WithEvents lbl_network1 As System.Windows.Forms.Label
     Friend WithEvents txt_buildprop As ICSharpCode.TextEditor.TextEditorControl
     Friend WithEvents lbl_BuildPropStats As System.Windows.Forms.Label
-    Friend WithEvents lbl_version As System.Windows.Forms.Label
+    Friend WithEvents ll_Update As System.Windows.Forms.LinkLabel
+    Friend WithEvents ll_Github As System.Windows.Forms.LinkLabel
 
 End Class

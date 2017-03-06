@@ -145,6 +145,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Sub Forms\frm_updater.designer.vb">
+      <DependentUpon>frm_updater.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sub Forms\frm_updater.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Sub Forms\adb_pushpull.resx">
@@ -164,6 +170,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sub Forms\frm_updater.resx">
+      <DependentUpon>frm_updater.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
